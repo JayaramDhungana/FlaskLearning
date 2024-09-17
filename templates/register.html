@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Book Recommendation System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: url('https://images.unsplash.com/photo-1518709268805-5d4dc02a02a4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwyMDUyMTJ8MHwxfGFsbHwxfHx8fHx8fHwxNjcwNzE2Mjk&ixlib=rb-1.2.1&q=80&w=1920') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.8); /* Dark overlay for better readability */
+            padding: 40px;
+            border-radius: 10px;
+            width: 350px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        h2 {
+            font-size: 30px;
+            margin-bottom: 20px;
+            color: #fff;
+            font-weight: 600;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            font-size: 16px;
+            color: #ddd;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+        input:focus {
+            outline: none;
+            border: 2px solid #4CAF50;
+        }
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 50px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        .btn-info {
+            background-color: #008CBA;
+            margin-top: 10px;
+        }
+        .btn-info:hover {
+            background-color: #007bb5;
+        }
+        .text-danger {
+            color: #ff5c58;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Create Your Account</h2>
+
+        <!-- Flask flash message display block -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="alert alert-danger">
+              <ul>
+                  {% for message in messages %}
+                  <li>{{ message }}</li>
+                  {% endfor %}
+              </ul>
+          </div>
+        {% endif %}
+        {% endwith %}
+
+        <!-- Registration form -->
+        <form action="/register" method="POST">
+            {{ form.hidden_tag() }}
+            
+            <div class="form-group">
+                {{ form.name.label(for="name") }}
+                {{ form.name(id="name", class="form-control") }}
+                {% if form.name.errors %}
+                <ul class="text-danger">
+                    {% for error in form.name.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                {{ form.email.label(for="email") }}
+                {{ form.email(id="email", class="form-control") }}
+                {% if form.email.errors %}
+                <ul class="text-danger">
+                    {% for error in form.email.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                {{ form.password.label(for="password") }}
+                {{ form.password(id="password", class="form-control") }}
+                {% if form.password.errors %}
+                <ul class="text-danger">
+                    {% for error in form.password.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            
+            {{ form.submit(class="btn") }}
+            <a href="/login" class="btn btn-info">Login</a>
+        </form>
+    </div>
+
+</body>
+</html>
