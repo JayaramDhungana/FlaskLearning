@@ -1,0 +1,161 @@
+
+<!-- templates/admin/admin_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - Book Recommendation System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .navbar .logout {
+            float: right;
+            background-color: #d9534f;
+        }
+        .container {
+            padding: 20px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        .btn {
+            padding: 8px 12px;
+            margin-right: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+        }
+        .btn-promote {
+            background-color: #4CAF50;
+        }
+        .btn-demote {
+            background-color: #f0ad4e;
+        }
+        .btn-delete {
+            background-color: #d9534f;
+        }
+        .btn:hover {
+            opacity: 0.8;
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        .btn {
+        padding: 8px 12px;
+        margin: 5px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        color: white;
+        text-decoration: none;
+    }
+    .btn-pagination {
+        background-color: #4CAF50; /* Green color for buttons */
+    }
+    .btn:hover {
+        opacity: 0.8;
+    }
+    .btn-edit {
+        background-color: #5bc0de; /* Light blue */
+        color: white;
+        padding: 8px 12px;
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        display: inline-block;
+    }
+    .btn-edit:hover {
+        background-color: #31b0d5; /* Darker blue on hover */
+        color: white;
+        opacity: 0.9;
+    }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="{{ url_for('admin_page') }}" >Home</a>
+        <a href="{{ url_for('book_manage') }}">Book Management</a>
+        <a href="{{ url_for('user_manage') }}">User Management</a>
+        
+       
+        
+        <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+    </div>
+    <h1>Books List</h1>
+    <a href="{{ url_for('add_book') }}">Add New Book</a>
+    <table border="1">
+        <tr>
+            <th>ISBN</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Year</th>
+            <th>Publisher</th>
+            <th>Actions</th>
+        </tr>
+        {% for book in books %}
+        <tr>
+            <td>{{ book['ISBN'] }}</td>
+            <td>{{ book['Book-Title'] }}</td>
+            <td>{{ book['Book-Author'] }}</td>
+            <td>{{ book['Year-Of-Publication'] }}</td>
+            <td>{{ book['Publisher'] }}</td>
+            <td>
+                <a href="{{ url_for('edit_book', isbn=book['ISBN']) }}" class="btn btn-edit">Edit</a>
+                <form action="{{ url_for('delete_book', isbn=book['ISBN']) }}" method="post" style="display:inline;" onsubmit="return confirmDelete();">
+                    <button type="submit" class="btn btn-delete">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="pagination">
+        {% if has_prev %}
+        <a href="{{ url_for('book_manage', page=page-1) }}" class="btn btn-pagination" tyle="background-color: green;">Previous</a>
+        {% endif %}
+        <span>Page {{ page }}</span>
+        {% if has_next %}
+        <a href="{{ url_for('book_manage', page=page+1) }}" class="btn btn-pagination">Next</a>
+        {% endif %}
+    </div>
+    <script>
+        function confirmDelete() {
+            return confirm("Are you sure you want to delete this book?");
+        }
+    </script>
+</body>
+</html>

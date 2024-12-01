@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Book Recommendation System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: url('https://images.unsplash.com/photo-1512820790803-83ca734da794') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Dark overlay for contrast */
+        }
+        .container {
+            position: relative;
+            background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+            padding: 50px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+            width: 400px;
+        }
+        h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #f9f9f9;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        label {
+            font-size: 16px;
+            color: #ddd;
+            margin-bottom: 8px;
+            display: block;
+        }
+        input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-top: 5px;
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+        }
+        input:focus {
+            outline: none;
+            border: 2px solid #4CAF50;
+        }
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 50px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        .register {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px;
+            background-color: #008CBA;
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            width: 100%;
+            font-size: 16px;
+            text-align: center;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .register:hover {
+            background-color: #007bb5;
+            transform: scale(1.05);
+        }
+        .alert {
+            margin-top: 10px;
+            background-color: #ff5c58;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: left;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .footer {
+            font-size: 12px;
+            color: #ccc;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+
+    <div class="container">
+        <h2>Admin Login</h2>
+        
+        <!-- Flask flash message display block -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="alert">
+              <ul>
+                  {% for message in messages %}
+                  <li>{{ message }}</li>
+                  {% endfor %}
+              </ul>
+          </div>
+        {% endif %}
+        {% endwith %}
+        
+        <!-- Login form -->
+        <form action="/admin_login" method="POST">
+            {{ form.hidden_tag() }}
+            
+            <div class="form-group">
+                {{ form.email.label(for="email") }}
+                {{ form.email(id="email", class="form-control") }}
+                {% if form.email.errors %}
+                <ul>
+                    {% for error in form.email.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                {{ form.password.label(for="password") }}
+                {{ form.password(id="password", class="form-control") }}
+                {% if form.password.errors %}
+                <ul>
+                    {% for error in form.password.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+
+            {{ form.submit(class="btn") }}
+        </form>
+
+        <!-- Register button -->
+        
+        <div class="footer">&copy; 2024 Book Recommendation System</div>
+    </div>
+
+</body>
+</html>

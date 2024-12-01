@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,10 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            margin: 0;
-            padding: 0;
+            padding-top: 100;
+            margin: 100;
             font-family: 'Poppins', sans-serif;
-            background: url('https://images.unsplash.com/photo-1518709268805-5d4dc02a02a4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwyMDUyMTJ8MHwxfGFsbHwxfHx8fHx8fHwxNjcwNzE2Mjk&ixlib=rb-1.2.1&q=80&w=1920') no-repeat center center fixed;
+            background: url('https://images.unsplash.com/photo-1512820790803-83ca734da794') no-repeat center center fixed;
             background-size: cover;
             height: 100vh;
             display: flex;
@@ -19,7 +20,8 @@
             color: #fff;
         }
         .container {
-            background: rgba(0, 0, 0, 0.8); /* Dark overlay for better readability */
+            
+            background: rgba(0, 0, 0, 0.8);
             padding: 40px;
             border-radius: 10px;
             width: 350px;
@@ -85,6 +87,9 @@
             font-size: 14px;
             margin-top: 5px;
         }
+        .a{
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -144,9 +149,19 @@
                 </ul>
                 {% endif %}
             </div>
+
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" min="0" required>
+            </div>
             
             {{ form.submit(class="btn") }}
-            <a href="/login" class="btn btn-info">Login</a>
+            <a href="/login" class="btn btn-info a">Already have an account? Login</a>
         </form>
     </div>
 
